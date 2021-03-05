@@ -19,7 +19,7 @@ const getUserFromDB = async (email) => {
 // generate JWT
 const generateJWT = (userId, email) => {
   if (!userId || !email) {
-    return next(new HttpError('Bad data for JWT', 422))
+    return new Error('Bad data for JWT')
   }
   try {
     const token = jwt.sign(
@@ -81,10 +81,34 @@ export const signup = async (req, res, next) => {
   })
 }
 
-export const login = (req, res, next) => {
-  // TODO: implement the logic
+export const login = async (req, res, next) => {
+  const { email, password } = req.body
 
-  res.status(200).json({
-    msg: 'login'
-  });
+  // check is user already exists
+  const fetchedUser = await getUserFromDB(email);
+
+  if (!fetchedUser) {
+    return next(new HttpError('Email is not registered', 403))
+  }
+
+  // check the password validity
+  let isValidPassword = false;
+  try {
+    isValidPassword = await bcrypt.compare(password, fetchedUser.password);
+  } catch (err) {
+    return next(new HttpError(err._message, 500))
+  }
+
+  if (!isValidPassword) {
+    return next(new HttpError('Incorrect password', 403))
+  }
+
+  // generating JWT
+  const token = generateJWT(fetchedUser.id, fetchedUser.email);
+
+  res.status(201).json({
+    userId: fetchedUser.id,
+    email: fetchedUser.email,
+    token
+  })
 }
