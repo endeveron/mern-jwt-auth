@@ -1,9 +1,0 @@
-{
-  "env": {
-    "PORT": 5002,
-    "DB_NAME": "mern-play",
-    "DB_USER": "admin",
-    "DB_PASSWORD": "87er6r46356d5",
-    "JWT_KEY": "pkey_ds3Yu=uU7Jspt3Er]9+fg/es58H7575=8eeASIbwa&^7ynws0dfiB43grsk8heJ7p"
-  }
-}
