@@ -1,0 +1,8 @@
+{
+  "env": {
+    "PORT": 5002,
+    "DB_NAME": "mern-play",
+    "DB_USER": "admin",
+    "DB_PASSWORD": "87er6r46356d5"
+  }
+}
