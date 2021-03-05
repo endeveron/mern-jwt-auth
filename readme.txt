@@ -15,4 +15,9 @@ SERVER
   express
   mongoose
 
+  bcryptjs
+  jsonwebtoken
+  express-validator
+  mongoose-unique-validator
+
   -D nodemon :5002
