@@ -24,6 +24,18 @@ app.use((req, res, next) => {
 
 app.use('/api/user', userRoutes);
 
+app.use((req, res, next) => {
+  return next(new HttpError('Not Found', 404));
+});
+
+app.use((error, req, res, next) => {
+  if (res.headerSent) {
+    return next(error);
+  }
+  res.status(error.code || 500);
+  res.json({ message: error.message || '[B_APP 36]' })
+});
+
 const CONNECTION_URL = `mongodb+srv://${ process.env.DB_USER }:${ process.env.DB_PASSWORD }@mern.vohpb.mongodb.net/${ process.env.DB_NAME }?retryWrites=true&w=majority`
 
 mongoose

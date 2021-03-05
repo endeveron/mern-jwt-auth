@@ -1,0 +1,17 @@
+.auth {
+  box-sizing: border-box;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth__mode-toggler {
+  padding: 2rem 0;
+  color: var(--clr-neutral);
+}
+
+.auth__mode-toggler span {
+  cursor: pointer;
+}
